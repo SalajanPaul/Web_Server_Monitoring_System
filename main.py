@@ -3,12 +3,12 @@ import time
 
 def server_status(url):
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
         if 200 <= response.status_code < 300:
             return True
         else:
             return False
-    except requests.ConnectionError:
+    except (requests.ConnectionError, requests.Timeout):
         return False
 
 def server_monitoring(url_server, verification_interval):
